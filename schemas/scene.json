@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "scene.schema",
+  "title": "Scene",
+  "type": "object",
+  "properties": {
+    "coordinateSystems": {
+      "$ref": "coordinate_systems.schema"
+    },
+    "coordinateTransformations": {
+      "$ref": "coordinate_transformations.schema"
+    }
+  },
+  "required": [
+    "coordinateTransformations"
+  ],
+  "additionalProperties": false
+}

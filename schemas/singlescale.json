@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "singlescale.schema",
+  "title": "Singlescale",
+  "description": "Singlescale OME Node",
+  "type": "object",
+  "properties": {
+    "type": {
+      "const": "singlescale"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9-_.]+$"
+    },
+    "name": {
+      "type": "string"
+    },
+    "path": {
+      "$ref": "path.schema"
+    },
+    "attributes": {
+      "type": "object",
+      "properties": {
+        "coordinateTransformations": {
+          "$ref": "coordinate_transformations.schema"
+        }
+      },
+      "required": [
+        "coordinateTransformations"
+      ]
+    }
+  },
+  "required": [
+    "type",
+    "name",
+    "attributes"
+  ],
+  "additionalProperties": false
+}

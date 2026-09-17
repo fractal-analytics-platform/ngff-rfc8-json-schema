@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "reference.schema",
+  "title": "Reference",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9-_.]+$"
+    },
+    "path": {
+      "$ref": "path.schema"
+    }
+  },
+  "required": [
+    "id"
+  ],
+  "additionalProperties": false
+}
