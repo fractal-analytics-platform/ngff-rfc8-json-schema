@@ -28,6 +28,9 @@ build-backend = "hatchling.build"
 only-packages = true
 packages = ["python/src/ngff_rfc8"]
 
+[tool.hatch.build.targets.wheel.force-include]
+"schemas" = "ngff_rfc8/schemas"
+
 
 [tool.ruff]
 line-length = 90
