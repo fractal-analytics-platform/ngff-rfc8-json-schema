@@ -2,9 +2,9 @@ name: Python CI
 
 on:
   push:
-    branches: ["main"]
+    branches: ["main", "first-schemas"] # FIXME: remove first-schemas
   pull_request:
-    branches: ["main"]
+    branches: ["main", "first-schemas"] # FIXME: remove first-schemas
 
 
 permissions: {}
@@ -28,108 +28,12 @@ jobs:
 
       - uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
         with:
-          version: "0.11.14"
+          version: "latest-known"
           enable-cache: true
           python-version: ${{ matrix.python-version }}
 
-      - run: uv sync --frozen --extra dev
+      - run: uv sync --frozen --all-extras
 
-      - name: Install pydantic ${{ matrix.pydantic-version }}
-        run: uv pip install pydantic==${{ matrix.pydantic-version }}
+      - run: uv run --no-sync --frozen pytest python/tests
 
-      - name: Test with pytest
-        env:
-          COVERAGE_FILE: coverage-data-${{ matrix.python-version }}-pydantic-${{ matrix.pydantic-version}}
-        run: uv run --no-sync --frozen coverage run -m pytest
-
-      - name: Upload coverage data
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-        with:
-          name: coverage-data-${{ matrix.python-version }}-pydantic-${{ matrix.pydantic-version}}
-          path: coverage-data-${{ matrix.python-version }}-pydantic-${{ matrix.pydantic-version}}*
-
-
-  tests-lowest:
-    name: "Python ${{ matrix.python-version }} / lowest"
-    runs-on: ubuntu-24.04
-    timeout-minutes: 30
-
-    strategy:
-      matrix:
-        python-version: ["3.11", "3.12"]
-
-    steps:
-
-      - uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
-        with:
-          persist-credentials: false
-
-      - uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
-        with:
-          version: "0.11.14"
-          enable-cache: true
-          python-version: ${{ matrix.python-version }}
-
-      - run: uv lock --resolution lowest-direct
-
-      - run: uv sync --frozen --extra dev
-
-      - name: Test with pytest
-        env:
-          COVERAGE_FILE: coverage-data-${{ matrix.python-version }}-lowest
-        run: uv run --no-sync --frozen coverage run -m pytest
-
-      - name: Upload coverage data
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-        with:
-          name: coverage-data-${{ matrix.python-version }}-lowest
-          path: coverage-data-${{ matrix.python-version }}-lowest*
-
-  coverage:
-    name: Coverage
-    runs-on: ubuntu-24.04
-    needs: [tests, tests-lowest]
-
-    permissions:
-      pull-requests: write
-      contents: write
-
-    steps:
-      - uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
-        with:
-          # The git operations in python-coverage-comment-action utilize the
-          # token stored by actions/checkout.
-          # https://github.com/py-cov-action/python-coverage-comment-action/issues/610
-          persist-credentials: true
-
-      - uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
-        with:
-          version: "0.11.14"
-          enable-cache: true
-          python-version: ${{ matrix.python-version }}
-
-      - run: uv sync --frozen --extra dev
-
-      - name: Download data
-        uses: actions/download-artifact@484a0b528fb4d7bd804637ccb632e47a0e638317
-        with:
-          pattern: coverage-data-*
-          merge-multiple: true
-
-      - name: Combine coverage
-        # Combines all the downloaded coverage artifacts in a single `.coverage` file,
-        # which will then be used by `py-cov-action/python-coverage-comment-action`.
-        # We added this step to replace the variable `MERGE_COVERAGE_FILES: true`
-        # in the next step, which had started to raise errors
-        # (https://github.com/fractal-analytics-platform/fractal-server/pull/1725).
-        run: uv run --frozen coverage combine coverage-data-*
-
-      - name: Add coverage comment to Pull Requests
-        id: coverage_comment
-        uses: py-cov-action/python-coverage-comment-action@5d8df5979747514c914e1c5a12335a7cf9a2745f # v4.1
-        with:
-          GITHUB_TOKEN: ${{ github.token }}
-          MINIMUM_GREEN: 90
-          MINIMUM_ORANGE: 60
-          ANNOTATE_MISSING_LINES: true
-          ANNOTATION_TYPE: notice
+      - run: uv run --no-sync --frozen python3 python/scripts/build_single_schema.py
