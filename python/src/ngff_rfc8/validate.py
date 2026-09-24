@@ -1,10 +1,12 @@
+from typing import Any
+
 from jsonschema import validate
 
 from .load_schemas import build_registry
 from .load_schemas import get_ome_schema
 
 
-def validate_collection(data):
+def validate_collection(data: dict[str, Any]) -> None:
     if "ome" in data.keys():
         validate(
             instance=data,
