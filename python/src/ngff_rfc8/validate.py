@@ -12,7 +12,11 @@ def validate_collection(data):
             registry=build_registry(),
         )
     elif "attributes" in data.keys() and data.get("node_type") == "group":
-        pass
+        validate(
+            instance=data["ome"],
+            schema=get_ome_schema(),
+            registry=build_registry(),
+        )
     else:
         error = (
             "The document must include a 'ome' property, "
