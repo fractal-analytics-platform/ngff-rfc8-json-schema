@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ome.schema",
+  "title": "OME",
+  "description": "OME-Zarr OME metadata",
+  "type": "object",
+  "properties": {
+    "ome": {
+      "allOf": [
+        {
+          "type": "object",
+          "properties": {
+            "version": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "version"
+          ]
+        },
+        {
+          "$ref": "node.schema"
+        }
+      ]
+    }
+  },
+  "required": [
+    "ome"
+  ]
+}

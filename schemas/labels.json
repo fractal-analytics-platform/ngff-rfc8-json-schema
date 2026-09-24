@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "labels.schema",
+  "title": "Labels",
+  "type": "object",
+  "properties": {
+    "labelAttributes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "labelValue": {
+            "description": "The value of the label",
+            "type": "number"
+          },
+          "color": {
+            "description": "The RGBA color stored as an array of four integers between 0 and 255",
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 255
+            },
+            "minItems": 4,
+            "maxItems": 4
+          }
+        },
+        "required": [
+          "labelValue"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "source": {
+      "type": "array",
+      "items": {
+        "$ref": "reference.schema"
+      }
+    }
+  },
+  "additionalProperties": false
+}

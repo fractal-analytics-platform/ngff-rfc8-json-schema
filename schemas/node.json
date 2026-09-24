@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "node.schema",
+  "title": "Node",
+  "description": "OME Node",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "not": {
+            "anyOf": [
+              {"const": "collection"},
+              {"const": "singlescale"},
+              {"const": "multiscale"}
+            ]
+          }
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9-_.]+$"
+        },
+        "name": {
+          "type": "string"
+        },
+        "nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "node.schema"
+          }
+        },
+        "attributes": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "type",
+        "name"
+      ]
+    },
+    {
+      "$ref": "collection.schema"
+    },
+    {
+      "$ref": "singlescale.schema"
+    },
+    {
+      "$ref": "multiscale.schema"
+    }
+  ]
+}

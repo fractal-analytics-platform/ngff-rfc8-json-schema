@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "multiscale.schema",
+  "title": "Multiscale",
+  "description": "Multiscale OME Node",
+  "type": "object",
+  "properties": {
+    "type": {
+      "const": "multiscale"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9-_.]+$"
+    },
+    "name": {
+      "type": "string"
+    },
+    "attributes": {
+      "type": "object",
+      "properties": {
+        "coordinateSystems": {
+          "$ref": "coordinate_systems.schema"
+        },
+        "labels": {
+          "$ref": "labels.schema"
+        }
+      },
+      "required": [
+        "coordinateSystems"
+      ]
+    },
+    "nodes": {
+      "type": "array",
+      "items": {
+        "$ref": "node.schema"
+      }
+    },
+    "path": {
+      "$ref": "path.schema"
+    }
+  },
+  "required": [
+    "type",
+    "name",
+    "attributes"
+  ],
+  "additionalProperties": false,
+  "oneOf": [
+    {
+      "required": [
+        "nodes"
+      ]
+    },
+    {
+      "required": [
+        "path"
+      ]
+    }
+  ]
+}

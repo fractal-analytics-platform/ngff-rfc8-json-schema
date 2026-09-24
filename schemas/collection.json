@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "collection.schema",
+  "title": "Collection",
+  "description": "Collection OME Node",
+  "type": "object",
+  "properties": {
+    "type": {
+      "const": "collection"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9-_.]+$"
+    },
+    "name": {
+      "type": "string"
+    },
+    "attributes": {
+      "type": "object",
+      "properties": {
+        "scene": {"$ref": "scene.schema"}
+      }
+    },
+    "nodes": {
+      "type": "array",
+      "items": {
+        "$ref": "node.schema"
+      }
+    },
+    "path": {
+      "$ref": "path.schema"
+    }
+  },
+  "required": [
+    "type",
+    "name"
+  ],
+  "oneOf": [
+    {
+      "required": [
+        "nodes"
+      ]
+    },
+    {
+      "required": [
+        "path"
+      ]
+    }
+  ]
+}
