@@ -56,6 +56,8 @@ jobs:
           enable-cache: true
           python-version: "3.13"
 
-      - run: uv build
+      - run: uv build --wheel
+
       - run: unzip dist/ngff_rfc8-0.0.1-py3-none-any.whl
+
       - run: ls ngff_rfc8/schemas
