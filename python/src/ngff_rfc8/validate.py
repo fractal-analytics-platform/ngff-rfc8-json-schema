@@ -11,13 +11,9 @@ def validate_collection(data):
             schema=get_ome_schema(),
             registry=build_registry(),
         )
-    elif (
-        "attributes" in data.keys()
-        and "ome" in data["attributes"].keys()
-        and data.get("node_type") == "group"
-    ):
+    elif "attributes" in data.keys() and data.get("node_type") == "group":
         validate(
-            instance=data["ome"],
+            instance=data["attributes"],
             schema=get_ome_schema(),
             registry=build_registry(),
         )
