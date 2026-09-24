@@ -1,28 +1,28 @@
 # NGFF RFC-8 JSON Schemas
 
-Preliminary JSON Schemas for NGFF RFC-8 (collections) - see https://ngff.openmicroscopy.org/rfc/8/index.html
+Preliminary JSON Schemas for NGFF RFC-8 (collections) - see https://ngff.openmicroscopy.org/rfc/8/index.html.
 
-## Development
+## Develpoment (Python)
 
 ```bash
 uv venv
-uv sync
+uv sync --all-extras
 ```
 
 ## Run tests
 
 ```bash
-uv run pytest
+uv run pytest python/tests
 ```
 
 ## Validate JSON file
 
 ```bash
-uv run python validate.py <file>
+uv run ngff-rfc-8-validate <file>
 ```
 
 ## Generate single-file JSON Schema
 
 ```bash
-uv run python build_single_schema.py > ngff-rfc8.json
+uv run python3 python/scripts/build_single_schema.py > ngff-rfc8.json
 ```

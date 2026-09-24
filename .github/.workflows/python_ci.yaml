@@ -1,0 +1,39 @@
+name: Python CI
+
+on:
+  push:
+    branches: ["main", "first-schemas"] # FIXME: remove first-schemas
+  pull_request:
+    branches: ["main", "first-schemas"] # FIXME: remove first-schemas
+
+
+permissions: {}
+
+jobs:
+
+  tests:
+    name: "Python ${{ matrix.python-version }}"
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+
+    strategy:
+      matrix:
+        python-version: ["3.12", "3.13", "3.14", "3.15"]
+
+    steps:
+
+      - uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
+        with:
+          persist-credentials: false
+
+      - uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
+        with:
+          version: "latest-known"
+          enable-cache: true
+          python-version: ${{ matrix.python-version }}
+
+      - run: uv sync --frozen --all-extras
+
+      - run: uv run --no-sync --frozen pytest python/tests
+
+      - run: uv run --no-sync --frozen python3 python/scripts/build_single_schema.py
