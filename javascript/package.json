@@ -1,5 +1,5 @@
 {
-  "name": "ngff-rfc8-validator",
+  "name": "@fractal-analytics-platform/ngff-rfc8-validator",
   "version": "0.0.1",
   "type": "module",
   "license": "BSD-3-Clause",
