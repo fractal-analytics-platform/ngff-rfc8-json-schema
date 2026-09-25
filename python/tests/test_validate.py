@@ -154,8 +154,7 @@ def test_labels_attribute_missing_label_value():
                         }
                     ],
                 }
-            },
-            ignore_nodes=False,
+            }
         )
 
 
@@ -240,8 +239,7 @@ def test_invalid_labels_color():
                         }
                     ],
                 }
-            },
-            ignore_nodes=False,
+            }
         )
 
 
