@@ -26,7 +26,6 @@ data = {
         "nodes": [],
     }
 }
-
 validate_collection(data)
 ```
 while a command-line-interface example looks like
