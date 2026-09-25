@@ -1,4 +1,4 @@
-# NGFF RFC-8 JSON Schemas
+# NGFF RFC-8 collection validator
 
 JSON Schemas and validation tools for NGFF RFC-8 collections - see https://ngff.openmicroscopy.org/rfc/8/index.html.
 
