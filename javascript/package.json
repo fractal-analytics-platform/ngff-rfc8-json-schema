@@ -1,6 +1,5 @@
 {
   "name": "ngff-rfc8-validator",
-  "private": true,
   "version": "0.0.1",
   "type": "module",
   "license": "BSD-3-Clause",
