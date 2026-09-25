@@ -8,6 +8,10 @@ on:
 
 permissions: {}
 
+defaults:
+  run:
+    working-directory: ./javascript
+
 jobs:
   build:
     name: 'Lint and build'
@@ -25,19 +29,13 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: |
-          cd javascript
-          npm ci
+        run: npm ci
 
       - name: Check
-        run: |
-          cd javascript
-          npm run lint
+        run: npm run lint
 
       - name: Build
-        run: |
-          cd javascript
-          npm run build
+        run: npm run build
 
   test:
     name: 'Unit tests'
@@ -55,11 +53,7 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: |
-          cd javascript
-          npm ci
+        run: npm ci
 
       - name: Run unit tests
-        run: |
-          cd javascript
-          npm run test
+        run: npm run test
