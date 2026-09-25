@@ -2,7 +2,7 @@
 
 JSON Schemas and validation tools for NGFF RFC-8 collections - see https://ngff.openmicroscopy.org/rfc/8/index.html.
 
-> **WARNING**: This project is a proof of concept. It is experimental, unstable, and not intended for production use.
+> ⚠️ **WARNING**: This project is a proof of concept. It is experimental, unstable, and not intended for production use.
 
 ## JSON Schemas
 
